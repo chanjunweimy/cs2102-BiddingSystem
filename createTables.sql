@@ -23,8 +23,8 @@ PRIMARY KEY (module, excludedModule)
 
 CREATE TABLE modulesTime (
 moduleCode VARCHAR (16),
-startTime TIME,
-endTime TIME,
+startTime VARCHAR(10),
+endTime VARCHAR(10),
 day CHAR (3) 
 CHECK (
 lower(day) LIKE ('mon') OR
@@ -61,8 +61,8 @@ PRIMARY KEY (matricNo, moduleCode)
 CREATE TABLE selected(
 matricNo VARCHAR(10),
 moduleCode VARCHAR(16),
-startTime TIME,
-endTime TIME,
+startTime VARCHAR(10),
+endTime VARCHAR(10),
 day CHAR(3),
 bidpoints INT NOT NULL,
 success INT NOT NULL CHECK (success = 0 OR success = 1),
