@@ -41,7 +41,7 @@
 <div class="content">
 <font size="-1">
 
-  <h1>Welcome</h1>
+  <h1>Modules Bidding</h1>
   
   <!-- end .content --></font></div>
 <!-- InstanceEndEditable -->
