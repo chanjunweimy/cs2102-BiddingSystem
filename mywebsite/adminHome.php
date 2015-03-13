@@ -69,7 +69,13 @@
 <div class="content">
 <font size="-1">
 <?php $name = $_COOKIE["username"]; ?>
-  <h1>Welcome Administrator <?php echo $name?> </h1>
+  <h1>Welcome Administrator <?php echo $name?> </h1>	
+<h2>Session	
+<form id="form1" name="form1" method="post" action="session.php">
+<input name="startSession" type="submit" value="Start" />
+<input name="endSession" type="submit" value="End" />
+</form></h2>
+</p>
 <!-- end .content --></font></div>
 <!-- InstanceEndEditable -->
 <div class="footer"><center><font size="-2">

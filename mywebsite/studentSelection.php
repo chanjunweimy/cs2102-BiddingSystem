@@ -41,9 +41,8 @@
 <div class="content">
 <font size="-1">
 
-  <h1>Modules Selection</h1>
-  <form id="form1" name="form1" method="post" action="test2.php">
-
+<h1>Modules Selection</h1>
+<form id="form1" name="form1" method="post" action="studentSelectionForm.php">
 <?php
 $TSDB="//localhost/XE";
 $conn = oci_connect("system", "Kuntong369", $TSDB);
@@ -51,8 +50,8 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$stid = oci_parse($conn, "SELECT * FROM availableModules");
-$stid2 = oci_parse($conn, "SELECT moduleCode FROM availableModules");
+$stid = oci_parse($conn, "SELECT * FROM modules inner join modulesTime ON modules.moduleCode=modulesTime.moduleCode order by modulesTime.moduleCode,modulesTime.startTime,modulesTime.endTime,modulesTime.day");
+$stid2 = oci_parse($conn, "SELECT * FROM modules inner join modulesTime ON modules.moduleCode=modulesTime.moduleCode order by modulesTime.moduleCode,modulesTime.startTime,modulesTime.endTime,modulesTime.day");
 oci_execute($stid);
 oci_execute($stid2);
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
@@ -60,8 +59,7 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 ?>
 <table border='1'>
 	<tr><td>
-	<?php foreach($row2 as $item2)?>
-	<input name="checkbox[]" type="checkbox" value="<?php echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
@@ -71,11 +69,11 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 <?php
 }
 ?>
-  <input name="selectModule" type="submit" value="Select" />
+<input name="selectModule" type="submit" value="Select" />
 </form>
 
   <h1>Selected Modules</h1>
-  <form id="form1" name="form1" method="post" action="test2.php">
+  <form id="form1" name="form1" method="post" action="studentSelectionForm.php">
 
 <?php
 $TSDB="//localhost/XE";
@@ -84,9 +82,11 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$name=$_COOKIE["username"];
-$stid = oci_parse($conn, "SELECT SelectedModule FROM selected_modules where name='$name'");
-$stid2 = oci_parse($conn, "SELECT SelectedModule FROM selected_modules where name='$name'");
+$matric=$_COOKIE["username"];
+$stid = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selected.startTime,selected.endTime,selected.day FROM selected inner join modules on selected.moduleCode=modules.moduleCode
+		 where selected.matricNo='$matric' order by selected.matricNo,selected.moduleCode,selected.startTime,selected.endTime,selected.day");
+$stid2 = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selected.startTime,selected.endTime,selected.day FROM selected inner join modules on selected.moduleCode=modules.moduleCode
+		where selected.matricNo='$matric' order by selected.matricNo,selected.moduleCode,selected.startTime,selected.endTime,selected.day");
 
 oci_execute($stid);
 oci_execute($stid2);
@@ -96,8 +96,7 @@ and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
 <table border='1'>
 	<tr><td>
-	<?php foreach($row2 as $item2)?>
-	<input name="checkbox[]" type="checkbox" value="<?php echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";

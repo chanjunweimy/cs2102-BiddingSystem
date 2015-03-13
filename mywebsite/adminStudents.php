@@ -69,8 +69,8 @@
 <div class="content">
 <font size="-1">
 
-  <h1>Admin/student details</h1>
-<form id="form1" name="form1" method="post" action="test2.php">
+<h1>Users details</h1>
+<form id="form1" name="form1" method="post" action="adminStudentsForm.php">
 
 <?php
 $TSDB="//localhost/XE";
@@ -80,8 +80,8 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-$stid = oci_parse($conn, "SELECT * FROM staff order by name");
-$stid2 = oci_parse($conn, "SELECT name FROM staff order by name");
+$stid = oci_parse($conn, "SELECT * FROM users order by matricNo");
+$stid2 = oci_parse($conn, "SELECT matricNo FROM users order by matricNo");
 oci_execute($stid);
 oci_execute($stid2);
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
@@ -89,8 +89,7 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 ?>
 <table border='1'>
 	<tr><td>
-	<?php foreach($row2 as $item2)?>
-	<input name="checkbox[]" type="checkbox" value="<?php echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".$item2.""; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
@@ -106,7 +105,10 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 
 <h1>Add admin/student</h1>
 
-<form id="form1" name="form1" method="post" action="test2.php">
+<form id="form1" name="form1" method="post" action="adminStudentsForm.php">
+Matric No:<br>
+<input type="text" name="matric">
+<br>
 Name:<br>
 <input type="text" name="name">
 <br>
@@ -118,23 +120,29 @@ Re-type password:<br>
 <br>
 Choose admin or student:<br>
 <select name="adminStudent">
-  <option value="student">student</option>
-  <option value="admin">admin</option>
+  <option value="0">student</option>
+  <option value="1">admin</option>
 </select><br>
-  <input name="addStaff" type="submit" value="Add" />
+  <input name="addUsers" type="submit" value="Add" />
 </form>
 
 <h1>Update points</h1>
-
-
-<form id="form1" name="form1" method="post" action="test2.php">
-Name:<br>
-<input type="text" name="name">
+<form id="form1" name="form1" method="post" action="adminStudentsForm.php">
+Matric No:<br>
+<input type="text" name="matric">
 <br>
 Points:<br>
 <input type="text" name="points">
 <br>
-  <input name="updateStaff" type="submit" value="Update" />
+  <input name="updateUserPoints" type="submit" value="Update" />
+</form>
+
+<h1>Update everyone points</h1>
+<form id="form1" name="form1" method="post" action="adminStudentsForm.php">
+Points:<br>
+<input type="text" name="points">
+<br>
+  <input name="updateAllUserPoints" type="submit" value="Update" />
 </form>
 
 <!-- end .content --></font></div>

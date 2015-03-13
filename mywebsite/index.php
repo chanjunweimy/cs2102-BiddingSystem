@@ -43,14 +43,14 @@
     
   <form id="form1" name="form1" method="post" action="login.php">
   
-  <p>Username:    <span id="sprytextfield1">
+  <p>Username(Matric Number):    <span id="sprytextfield1">
     <input type="text" name="username" id="username" /></span></p>
     
   <p>Password:    <span id="sprytextfield2">
     <label for="password"></label>
     <input type="password" name="password" id="password" /></span></p>
   
-  <input name="" type="submit" value="Submit" />
+  <input name="" type="submit" value="Login" />
   
   </form></font>
   <!-- end .content -->

@@ -11,18 +11,18 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-$stid = oci_parse($conn, "SELECT * FROM staff where name='$username' and pass='$password' ");
+$stid = oci_parse($conn, "SELECT * FROM users where matricNo='$username' and password='$password' ");
 oci_execute($stid);
 
 if($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)){
-$stid2 = oci_parse($conn, "SELECT ISADMIN FROM staff where name='$username' and pass='$password' ");
+$stid2 = oci_parse($conn, "SELECT admin FROM users where matricNo='$username' and password='$password' ");
 oci_execute($stid2);
 	$row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS);
 		foreach ($row2 as $item) {
-        		if($item=="admin"){
+        		if($item=="1"){
 				header ( "Location: adminHome.php" );
 				setcookie("username", $_POST["username"], time()+3600);
-			}else if($item=="student"){	
+			}else if($item=="0"){	
 				setcookie("username", $_POST["username"], time()+3600);
 				header ( "Location: studentHome.php" );
 			}

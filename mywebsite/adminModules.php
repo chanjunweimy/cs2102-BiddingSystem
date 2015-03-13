@@ -69,9 +69,8 @@
 <div class="content">
 <font size="-1">
 
-<h1>Available Modules Time slots</h1>
-<form id="form1" name="form1" method="post" action="test2.php">
-
+<h1>Available Modules</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
 <?php
 $TSDB="//localhost/XE";
 $conn = oci_connect("system", "Kuntong369", $TSDB);
@@ -80,8 +79,8 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-$stid = oci_parse($conn, "SELECT * FROM availableModules");
-$stid2 = oci_parse($conn, "SELECT moduleName FROM availableModules");
+$stid = oci_parse($conn, "SELECT * FROM modules order by moduleCode");
+$stid2 = oci_parse($conn, "SELECT moduleCode FROM modules order by moduleCode");
 oci_execute($stid);
 oci_execute($stid2);
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
@@ -100,28 +99,26 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 <?php
 }
 ?>
-  <input name="deleteModuleAdmin" type="submit" value="Delete" />
+<input name="deleteModule" type="submit" value="Delete" />
 </form>
 
+
+
 <h1>Add New Module</h1>
-<form id="form1" name="form1" method="post" action="test2.php">
-Module Name:<br>
-<input type="text" name="moduleName">
-<br>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
 Module Code:<br>
 <input type="text" name="moduleCode">
 <br>
-Time slot:<br>
-<input type="text" name="moduleTimeSlot">
+Module Name:<br>
+<input type="text" name="moduleName">
 <br>
-
-  <input name="addModule" type="submit" value="Add" />
+<input name="addModule" type="submit" value="Add" />
 </form>
 
 
-<h1>Selected Modules Time slots by Students</h1>
-<form id="form1" name="form1" method="post" action="test2.php">
 
+<h1>Available Module time slots</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
 <?php
 $TSDB="//localhost/XE";
 $conn = oci_connect("system", "Kuntong369", $TSDB);
@@ -130,17 +127,17 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-$stid = oci_parse($conn, "SELECT * FROM selected_Modules");
-$stid2 = oci_parse($conn, "SELECT Name FROM selected_Modules");
+$stid = oci_parse($conn, "SELECT * FROM modulesTime order by moduleCode,startTime,endTime,day");
+$stid2 = oci_parse($conn, "SELECT * FROM modulesTime order by moduleCode,startTime,endTime,day");
 oci_execute($stid);
 oci_execute($stid2);
+
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
-	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
+	and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
 <table border='1'>
 	<tr><td>
-	<?php foreach($row2 as $item2)?>
-	<input name="checkbox[]" type="checkbox" value="<?php echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php  foreach($row2 as $item2) echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">	
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
@@ -150,7 +147,68 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 <?php
 }
 ?>
-  <input name="deleteSelectedModuleAdmin" type="submit" value="Delete" />
+<input name="deleteModuleTimeSlot" type="submit" value="Delete" />
+</form>
+
+
+<h1>Add New Module Time slots</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
+Module Code:<br>
+<input type="text" name="moduleCode">
+<br>
+Start Time:<br>
+<input type="text" name="startTime">
+<br>
+End Time:<br>
+<input type="text" name="endTime">
+<br>
+Day:<br>
+<select name="day">
+  <option value="Mon">Monday</option>
+  <option value="Tue">Tuesday</option>
+  <option value="Wed">Wednesday</option>
+  <option value="Thurs">Thursday</option>
+  <option value="Fri">Friday</option>
+  <option value="Sat">Saturday</option>
+  <option value="Sun">Sunday</option>
+</select>
+<br>
+Maximum Vacancy:<br>
+<input type="text" name="maxVac">
+<br>
+<input name="addModuleTimeSlot" type="submit" value="Add" />
+</form>
+
+<h1>Selected Modules Time slots by Students</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
+<?php
+$TSDB="//localhost/XE";
+$conn = oci_connect("system", "Kuntong369", $TSDB);
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+$stid = oci_parse($conn, "SELECT * FROM selected order by matricNo, moduleCode,startTime,endTime,day");
+$stid2 = oci_parse($conn, "SELECT * FROM selected order by matricNo, moduleCode,startTime,endTime,day");
+oci_execute($stid);
+oci_execute($stid2);
+while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
+	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
+?>
+<table border='1'>
+	<tr><td>
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2) echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
+	</td>
+	<?php foreach($row as $item){?>
+	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
+	}?>
+	</tr>
+</table>
+<?php
+}
+?>
+<input name="deleteSelectedModule" type="submit" value="Delete" />
 </form>
 
 

@@ -40,8 +40,24 @@
 <!-- InstanceBeginEditable name="content" -->
 <div class="content">
 <font size="-1">
-<?php $name = $_COOKIE["username"]; ?>
-  <h1>Welcome <?php echo $name?> </h1>
+<?php $matric = $_COOKIE["username"]; ?>
+
+<h1>Welcome <?php echo $matric?> </h1>
+<?php
+$TSDB="//localhost/XE";
+$conn = oci_connect("system", "Kuntong369", $TSDB);
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+$stid = oci_parse($conn, "SELECT points FROM users WHERE matricNo='$matric'");
+oci_execute($stid);
+while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
+foreach($row as $item){
+	echo "You have ".$item." points";
+}
+}
+?>
   
 <!-- end .content --></font></div>
 <!-- InstanceEndEditable -->
