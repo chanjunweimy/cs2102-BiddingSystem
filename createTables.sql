@@ -42,7 +42,7 @@ PRIMARY KEY (moduleCode, startTime, endTime, day)
 CREATE TABLE users (
 matricNo VARCHAR(10),
 admin INT DEFAULT '0' CHECK (admin = 0 OR admin = 1),
-name TEXT NOT NULL,
+name varchar(64) NOT NULL,
 points INT NOT NULL,
 openId INT DEFAULT '1' CHECK (openId = 0 OR openId = 1),
 password CHAR (64),
