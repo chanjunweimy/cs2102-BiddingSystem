@@ -35,16 +35,16 @@ lower(day) LIKE ('fri') OR
 lower(day) LIKE ('sat') OR
 lower(day) LIKE ('sun') ),
 maxVacancy INT NOT NULL,
-FOREIGN KEY (moduleCode) REFERENCES modules (moduleCode) ON DELETE CASCA,
+FOREIGN KEY (moduleCode) REFERENCES modules (moduleCode) ON DELETE CASCADE,
 PRIMARY KEY (moduleCode, startTime, endTime, day)
 );
 
-CREATE TABLE user (
+CREATE TABLE users (
 matricNo VARCHAR(10),
-admin INT NOT NULL CHECK (admin = 0 OR admin = 1) DEFAULT '0',
+admin INT DEFAULT '0' CHECK (admin = 0 OR admin = 1),
 name TEXT NOT NULL,
 points INT NOT NULL,
-openId INT NOT NULL CHECK (openId = 0 OR openId = 1) DEFAULT '1',
+openId INT DEFAULT '1' CHECK (openId = 0 OR openId = 1),
 password CHAR (64),
 PRIMARY KEY (matricNo)
 );
@@ -52,7 +52,7 @@ PRIMARY KEY (matricNo)
 CREATE TABLE passed (
 matricNo VARCHAR(10),
 moduleCode VARCHAR(16),
-FOREIGN KEY (matricNo) REFERENCES user(matricNo),
+FOREIGN KEY (matricNo) REFERENCES users(matricNo),
 FOREIGN KEY (moduleCode) REFERENCES modules(moduleCode),
 PRIMARY KEY (matricNo, moduleCode)
 );
