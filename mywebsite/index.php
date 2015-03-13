@@ -27,7 +27,7 @@
 
 <div class="chromestyle" id="chromemenu">
 <ul>
-<li>Welcome to Databse</li>
+<li>Welcome to Database</li>
 </ul>
 </div>
 </div>
