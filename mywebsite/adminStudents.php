@@ -73,8 +73,7 @@
 <form id="form1" name="form1" method="post" action="adminStudentsForm.php">
 
 <?php
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+include 'connect.php';
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
