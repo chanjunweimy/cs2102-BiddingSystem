@@ -7,8 +7,11 @@ $sql =
 	FROM selected s1 
 	WHERE EXISTS (
 		SELECT s2.matricNo 
-		FROM selected s2
-		ROWNUM <= (
+		FROM ( 
+			SELECT * 
+    		FROM selected sTemp
+   			ORDER BY sTemp.bidpoints DESC, sTemp.bidTime) s2
+		WHERE ROWNUM <= (
 			SELECT mt.maxVacancy
 			FROM modulesTime mt
 			WHERE mt.moduleCode = s2.moduleCode 
@@ -16,8 +19,7 @@ $sql =
 			AND mt.endTime = s2.endTime
 			AND mt.day = s2.day
 		)
-		ORDER BY s2.bidpoints DESC, s2.bidTime 
-		HAVING s1.matricNo = s2.matricNo
+		AND s1.matricNo = s2.matricNo
 		AND s1.moduleCode = s2.moduleCode 
 		AND s1.startTime = s2.startTime
 		AND s1.endTime = s2.endTime
