@@ -24,6 +24,7 @@ $sql =
 		AND s1.startTime = s2.startTime
 		AND s1.endTime = s2.endTime
 		AND s1.day = s2.day
+		AND s1.bidpoints > 0
 	)
 ) T
 SET T.bidSuccess = 1';
