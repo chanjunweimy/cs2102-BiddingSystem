@@ -4,8 +4,7 @@
 $username=$_POST["username"];
 $password=$_POST["password"];
 
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+include 'connect.php';
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
