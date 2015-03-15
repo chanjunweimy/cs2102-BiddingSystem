@@ -44,8 +44,8 @@
 <h1>Modules Selection</h1>
 <form id="form1" name="form1" method="post" action="studentSelectionForm.php">
 <?php
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+include 'connect.php';
+
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
@@ -76,8 +76,8 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
   <form id="form1" name="form1" method="post" action="studentSelectionForm.php">
 
 <?php
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+include 'connect.php';
+
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);

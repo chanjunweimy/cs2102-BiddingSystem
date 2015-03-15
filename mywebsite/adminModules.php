@@ -72,8 +72,7 @@
 <h1>Available Modules</h1>
 <form id="form1" name="form1" method="post" action="adminModulesForm.php">
 <?php
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+include 'connect.php';
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
@@ -120,8 +119,9 @@ Module Name:<br>
 <h1>Available Module time slots</h1>
 <form id="form1" name="form1" method="post" action="adminModulesForm.php">
 <?php
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+
+
+include 'connect.php';
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
@@ -182,8 +182,9 @@ Maximum Vacancy:<br>
 <h1>Selected Modules Time slots by Students</h1>
 <form id="form1" name="form1" method="post" action="adminModulesForm.php">
 <?php
-$TSDB="//localhost/XE";
-$conn = oci_connect("system", "Kuntong369", $TSDB);
+
+
+include 'connect.php';
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
