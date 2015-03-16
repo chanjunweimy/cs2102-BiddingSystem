@@ -52,7 +52,17 @@
   
   <input name="" type="submit" value="Login" />
   
-  </form></font>
+  </form>
+</font>
+  
+<font size="-1">
+<h1><br>Login through OpenID</br></h1>
+<form id="form1" name="form1" method="post" action="openID.php">
+  
+  <input name="" type="submit" value="Login Through OpenID" />
+  
+  </form>
+</font>	
   <!-- end .content -->
   </div>
 <!-- InstanceEndEditable -->
