@@ -54,6 +54,18 @@ $stid = oci_parse($conn, "SELECT * FROM modules inner join modulesTime ON module
 $stid2 = oci_parse($conn, "SELECT * FROM modules inner join modulesTime ON modules.moduleCode=modulesTime.moduleCode order by modulesTime.moduleCode,modulesTime.startTime,modulesTime.endTime,modulesTime.day");
 oci_execute($stid);
 oci_execute($stid2);
+$headers = array('Module Name','Module Name','Start Time','End Time','Day','Vacancy');
+?>
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+</table></br>
+
+<?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
@@ -91,6 +103,19 @@ $stid2 = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selecte
 oci_execute($stid);
 oci_execute($stid2);
 
+$headers = array('Module Code','Module Name','Start Time','End Time','Day');
+?>
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+</table></br>
+
+
+<?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>

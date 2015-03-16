@@ -77,11 +77,23 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
+$headers = array('Module Code','Module Name');
 
 $stid = oci_parse($conn, "SELECT * FROM modules order by moduleCode");
 $stid2 = oci_parse($conn, "SELECT moduleCode FROM modules order by moduleCode");
 oci_execute($stid);
-oci_execute($stid2);
+oci_execute($stid2);?>
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+</table>
+</br>
+
+<?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
@@ -126,12 +138,21 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
+$headers = array('Module Name','Start Time','End Time','Day','Vacancy');
 
 $stid = oci_parse($conn, "SELECT * FROM modulesTime order by moduleCode,startTime,endTime,day");
 $stid2 = oci_parse($conn, "SELECT * FROM modulesTime order by moduleCode,startTime,endTime,day");
 oci_execute($stid);
-oci_execute($stid2);
-
+oci_execute($stid2);?>
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+</table></br>
+<?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
@@ -189,11 +210,22 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
+$headers = array('Admin No','Module Code','Start Time','End Time','Day','Bid points','Bid Time','Success');
 
 $stid = oci_parse($conn, "SELECT * FROM selected order by matricNo, moduleCode,startTime,endTime,day");
 $stid2 = oci_parse($conn, "SELECT * FROM selected order by matricNo, moduleCode,startTime,endTime,day");
 oci_execute($stid);
-oci_execute($stid2);
+oci_execute($stid2);?>
+
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+</table></br>
+<?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>

@@ -83,6 +83,19 @@ $stid = oci_parse($conn, "SELECT * FROM users order by matricNo");
 $stid2 = oci_parse($conn, "SELECT matricNo FROM users order by matricNo");
 oci_execute($stid);
 oci_execute($stid2);
+$headers = array('Admin No','Admin','Name','Bid points','OpenID','Password');
+?>
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+</table></br>
+
+
+<?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
