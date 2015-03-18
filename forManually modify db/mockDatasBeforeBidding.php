@@ -9,7 +9,7 @@ $sql = "INSERT INTO modules
 VALUES
 ('cs1000', 'Introduction to computing')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO modules 
@@ -17,7 +17,7 @@ $sql = "INSERT INTO modules
 VALUES
 ('ma1311', 'Introduction to logic')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO modules 
@@ -25,7 +25,7 @@ $sql = "INSERT INTO modules
 VALUES
 ('cs1001s', 'Introduction to advanced computing')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO modules 
@@ -33,7 +33,7 @@ $sql = "INSERT INTO modules
 VALUES
 ('pc1219', 'Introduction to Newton Laws')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO modules 
@@ -41,7 +41,7 @@ $sql = "INSERT INTO modules
 VALUES
 ('cs2003', 'Introduction to Java')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO modules 
@@ -49,7 +49,7 @@ $sql = "INSERT INTO modules
 VALUES
 ('cs2013', 'Introduction to Cpp')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -61,7 +61,7 @@ $sql = "INSERT INTO prerequisite
 VALUES
 (0, 'cs2003', 'cs1000')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO prerequisite
@@ -69,7 +69,7 @@ $sql = "INSERT INTO prerequisite
 VALUES
 (0, 'cs2003', 'ma1311')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO prerequisite
@@ -77,7 +77,7 @@ $sql = "INSERT INTO prerequisite
 VALUES
 (1, 'cs2003', 'cs1001s')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO prerequisite
@@ -85,7 +85,7 @@ $sql = "INSERT INTO prerequisite
 VALUES
 (1, 'cs2003', 'ma1311')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -97,7 +97,7 @@ $sql = "INSERT INTO preclusion
 VALUES
 ('cs1000', 'cs1001s')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO preclusion
@@ -105,7 +105,7 @@ $sql = "INSERT INTO preclusion
 VALUES
 ('cs1001s', 'cs1000')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO preclusion
@@ -113,7 +113,7 @@ $sql = "INSERT INTO preclusion
 VALUES
 ('cs2003', 'cs2013')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO preclusion
@@ -121,7 +121,7 @@ $sql = "INSERT INTO preclusion
 VALUES
 ('cs2013', 'cs2003')";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -134,7 +134,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('cs1000', '12:00', '14:00', 'tue', 1)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 $sql = "INSERT INTO modulesTime 
@@ -142,7 +142,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('cs1000', '10:00', '12:00', 'tue', 2)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -151,7 +151,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('ma1311', '09:00', '11:00', 'mon', 3)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -160,7 +160,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('cs1001s', '10:00', '12:00', 'mon', 1)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -169,7 +169,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('cs1001s', '10:00', '12:00', 'wed', 1)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -178,7 +178,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('pc1219', '13:00', '15:00', 'tue', 3)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -187,7 +187,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('pc1219', '13:00', '15:00', 'thu', 3)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -196,7 +196,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('cs2003', '13:00', '15:00', 'fri', 2)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -205,7 +205,7 @@ $sql = "INSERT INTO modulesTime
 VALUES
 ('cs2013', '13:00', '15:00', 'fri', 1)";
 $stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
+oci_execute($stid);
 oci_free_statement($stid);
 
 
@@ -217,7 +217,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO users
 (matricNo, admin, name, points, openId, password)
 VALUES
-('a0112084u', 1, 'chan jun wei', 1000, 1, 'a0112084u')";
+('a0112084', 1, 'chan jun wei', 1000, 1, 'a0112084u')";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid,OCI_DEFAULT);
 oci_free_statement($stid);

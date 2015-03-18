@@ -35,25 +35,27 @@ try {
 				$matricNo = $value;
 			}
         }
-		
+				
 		$sql = 
-		"SELECT admin 
-		 FROM users 
-		 WHERE matricNo = '" . $matricNo . "'" ;
+		"SELECT u.admin as ADMIN
+		 FROM users u
+		 WHERE u.matricNo = '" . $matricNo . "'" ;
 		$stid = oci_parse($dbh , $sql);
-		oci_execute($stid, OCI_DEFAULT);
+		oci_execute($stid);
 		
-		while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-			if ($row['admin'] == 1) {
+		while ($row = oci_fetch_array($stid)) {
+			if ($row['ADMIN'] == 1) {
 				setcookie("matricNo", $matricNo, time()+3600);
 				header ( "Location: adminHome.php" );
-			} else if ($row['admin'] == 0) {
+			} else if ($row['ADMIN'] == 0) {
 				setcookie("matricNo", $matricNo, time()+3600);
 				header ( "Location: studentHome.php" );
 			} else {
-				echo 'error\n';
 			}
+			echo $row['ADMIN'];
+			echo 'aa';
 		}
+		echo 'error';
 
 		oci_free_statement($stid);
 
