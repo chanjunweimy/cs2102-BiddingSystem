@@ -27,7 +27,8 @@
 
 <div class="chromestyle" id="chromemenu">
 <ul>
-<li>Welcome to Database</li>
+<li><a href="studentTimeTable.php">Home</a></li>
+<li><a href="logout.php">Logout</a></li>
 </ul>
 </div>
 </div>
@@ -39,29 +40,8 @@
 <div class="content">
   <font size="-1">
   
-  <h1><br>Login</br></h1>
-    
-  <form id="form1" name="form1" method="post" action="login.php">
+  <h1><br>Time Table</br></h1>
   
-  <p>Username(Matric Number):    <span id="sprytextfield1">
-    <input type="text" name="username" id="username" /></span></p>
-    
-  <p>Password:    <span id="sprytextfield2">
-    <label for="password"></label>
-    <input type="password" name="password" id="password" /></span></p>
-  
-  <input name="" type="submit" value="Login" />
-  
-  </form>
-</font>
-  
-<font size="-1">
-<h1><br>Login through OpenID</br></h1>
-<form id="form1" name="form1" method="post" action="openID.php">
-  
-  <input name="" type="submit" value="Login Through OpenID" />
-  
-  </form>
 </font>	
   <!-- end .content -->
   </div>
