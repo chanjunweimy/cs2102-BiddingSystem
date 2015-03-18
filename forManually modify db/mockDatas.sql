@@ -1,4 +1,4 @@
-alter SESSION set NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH:MI:SS.FF';
+alter SESSION set NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF';
 
 INSERT INTO modules 
 (moduleCode, moduleName)
