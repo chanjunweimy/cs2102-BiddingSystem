@@ -14,4 +14,7 @@ $dbDescription = '(DESCRIPTION=
 putenv('ORACLE_HOME=/oraclient');
 $dbh=ocilogon($dbUser,$dbPassword,$dbDescription);
 
+error_reporting(E_ALL);
+
+
 ?>

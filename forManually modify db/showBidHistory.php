@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+include_once 'generateResult.php';
 
 $sql = 
 '(SELECT m.moduleName, mt.moduleCode, mt.startTime, mt.endTime, 
@@ -79,5 +79,8 @@ oci_free_statement($stid);
             </tr>
         <?php endforeach; ?>
         </table>
+		<form id="form1" name="form1" method="post" action="session.php">
+			<input name="endOfStartSession" type="submit" value="Start" />
+		</form>
     </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 namespace thirdpartylib;
+use ErrorException;
 
 /**
  * This class provides a simple interface for OpenID (1.1 and 2.0) authentication.

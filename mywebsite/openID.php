@@ -1,15 +1,21 @@
 <?php
 
-require_once (thirdpartylib\LightOpenID.php);
+$dir = 'thirdpartylib/LightOpenID.php';
+
+include_once $dir;
+include_once 'connect.php';
 
 use thirdpartylib\LightOpenId;
 
+
 try {
-	$domain = "localhost";
+	$domain = "http://cs2102-i.comp.nus.edu.sg/~a0112084/";
 	$openid = new LightOpenID($domain);
 	if(!$openid->mode) {
 		if (isset($_POST['nusnet_id'])) {
 			$openid->identity = "https://openid.nus.edu.sg/".$_POST['nusnet_id'];
+		} else {
+			$openid->identity = "https://openid.nus.edu.sg/";
 		}
 		# The following two lines request email, full name, and a nickname
 		# from the provider. Remove them if you don't need that data.
@@ -20,26 +26,37 @@ try {
     	//echo 'User has canceled authentication!';
 		header("Location: index.php");
     } else {
-        //echo "<h1>OpenID Login Information</h1>\n";
-        //echo "<fieldset>\n";
-        //echo "<p>User <b>" . ($openid->validate() ? $openid->identity . "</b> has " : "has not ") . "logged in.<p>\n";
-        //foreach ($openid->getAttributes() as $key => $value) {
-        //	echo "$key => $value<br>";
-        //}
-        //echo "</fieldset>\n";
+        if (!$openid->validate()){
+			header("Location: index.php");
+		}
 		
-		$stid2 = oci_parse($conn, "SELECT admin FROM users where matricNo='$username' and password='$password' ");
-		oci_execute($stid2);
-		$row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS);
-		foreach ($row2 as $item) {
-        	if ($item == "1") {
-				setcookie("username", $_POST["username"], time()+3600);
-				header ( "Location: adminHome.php" );
-			} else if ($item == "0"){	
-				setcookie("username", $_POST["username"], time()+3600);
-				header ( "Location: studentHome.php" );
+        foreach ($openid->getAttributes() as $key => $value) {
+			if ($key == 'namePerson/friendly') {
+				$matricNo = $value;
 			}
-    	}
+        }
+		
+		$sql = 
+		"SELECT admin 
+		 FROM users 
+		 WHERE matricNo = '" . $matricNo . "'" ;
+		$stid = oci_parse($dbh , $sql);
+		oci_execute($stid, OCI_DEFAULT);
+		
+		while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+			if ($row['admin'] == 1) {
+				setcookie("matricNo", $matricNo, time()+3600);
+				header ( "Location: adminHome.php" );
+			} else if ($row['admin'] == 0) {
+				setcookie("matricNo", $matricNo, time()+3600);
+				header ( "Location: studentHome.php" );
+			} else {
+				echo 'error\n';
+			}
+		}
+
+		oci_free_statement($stid);
+
     }
 } catch(ErrorException $e) {
     echo $e->getMessage();

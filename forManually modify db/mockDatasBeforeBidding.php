@@ -3,12 +3,6 @@ include 'connect.php';
 
 #these are the datas that already have before session open
 
-# set timestamp format
-$sql = "alter SESSION set NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'";
-$stid=oci_parse($dbh,$sql);
-oci_execute($stid,OCI_DEFAULT);
-oci_free_statement($stid);
-
 #insert into modules
 $sql = "INSERT INTO modules 
 (moduleCode, moduleName)
@@ -37,7 +31,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modules 
 (moduleCode, moduleName)
 VALUES
-('pc1219', 'Introduction to Newton Laws');";
+('pc1219', 'Introduction to Newton Laws')";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid,OCI_DEFAULT);
 oci_free_statement($stid);
@@ -397,7 +391,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO passed
 (matricNo, moduleCode)
 VALUES 
-('a0000007a', 'cs1000')"
+('a0000007a', 'cs1000')";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid,OCI_DEFAULT);
 oci_free_statement($stid);
