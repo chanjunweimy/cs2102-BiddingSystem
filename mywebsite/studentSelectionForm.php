@@ -12,10 +12,24 @@ if(isset($_POST['selectModule']))
 	$matric=$_COOKIE["username"];    
 	$checkbox = $_POST['checkbox'];
 	foreach($checkbox as $value){
-	$pieces = explode(" ", $value);
-	$stid = oci_parse($conn,"INSERT INTO selected
-	values('$matric', '$pieces[0]', '$pieces[2]', '$pieces[3]', '$pieces[4]','0',CURRENT_TIMESTAMP,'0') ");
-	oci_execute($stid);	
+		$pieces = explode(" ", $value);
+
+		$arraySize = count($pieces);
+
+		$moduleCode = $pieces[0];
+		$startTime = $pieces[$arraySize - 5];
+		$endTime = $pieces[$arraySize - 4];
+		$day = $pieces[$arraySize - 3];
+		$bidpoints = 0;
+
+		echo "module code: ".$moduleCode."<br>";
+		echo "start time: ".$startTime."<br>";
+		echo "end time: ".$endTime."<br>";
+		echo "day: ".$day."<br>";
+
+		$stid = oci_parse($conn,"INSERT INTO selected (matricNo, moduleCode, startTime, endTime, day, bidpoints, bidTime)
+								values('$matric', '$moduleCode', '$startTime', '$endTime', '$day', '$bidpoints', CURRENT_TIMESTAMP) ");
+		oci_execute($stid);	
 	}
 }
 
@@ -24,11 +38,24 @@ else if(isset($_POST['deleteModule']))
 	$matric=$_COOKIE["username"];    
 	$checkbox = $_POST['checkbox'];
 	foreach($checkbox as $value){
-	$pieces = explode(" ", $value);	
+		$pieces = explode(" ", $value);	
 	
-	$stid = oci_parse($conn,"DELETE FROM selected WHERE matricNo='$matric' and moduleCode='$pieces[0]' and startTime='$pieces[2]'and endTime='$pieces[3]' and day='$pieces[4]' ");
-	oci_execute($stid);	
+		$arraySize = count($pieces);
+
+		$moduleCode = $pieces[0];
+		$startTime = $pieces[$arraySize - 4];
+		$endTime = $pieces[$arraySize - 3];
+		$day = $pieces[$arraySize - 2];
+
+		$stid = oci_parse($conn,"DELETE FROM selected 
+								WHERE matricNo ='$matric' 
+								AND moduleCode ='$moduleCode' 
+								AND startTime ='$startTime'
+								AND endTime ='$endTime' 
+								AND day ='$day' ");
+		oci_execute($stid);	
 	}
+
 
 }
 
