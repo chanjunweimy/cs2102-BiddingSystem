@@ -35,7 +35,7 @@ try {
 				$matricNo = $value;
 			}
         }
-				
+						
 		$sql = 
 		"SELECT u.admin as ADMIN
 		 FROM users u

@@ -44,5 +44,6 @@ $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
 
+echo 'done deleting!';
 
 ?>

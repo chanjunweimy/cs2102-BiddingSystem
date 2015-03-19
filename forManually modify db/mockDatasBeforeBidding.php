@@ -421,4 +421,6 @@ oci_execute($stid,OCI_DEFAULT);
 oci_free_statement($stid);
 
 
+echo 'done mock data before bidding!! ';
+
 ?>

@@ -1,4 +1,6 @@
 <?php
+ob_start();
+
 //$TSDB="//localhost/XE";
 //$conn = ocilogon("system", "Kuntong369", $TSDB);
 

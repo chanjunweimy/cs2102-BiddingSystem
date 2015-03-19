@@ -47,9 +47,10 @@ $headers = array('Module Name',
 				 'Max Bid Points',
 				 'Min Bid Points');
 $datas = array();
+
 $index = 0;
 while ($row = oci_fetch_array($stid)) {
-	$datas[index] = $row;
+	$datas[$index] = $row;
 	$index++;
 }
 
