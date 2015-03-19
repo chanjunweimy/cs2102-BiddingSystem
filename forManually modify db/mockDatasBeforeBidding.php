@@ -132,7 +132,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('cs1000', '12:00', '14:00', 'tue', 1)";
+('cs1000', 1200, 1400, 'tue', 1)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -140,16 +140,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('cs1000', '10:00', '12:00', 'tue', 2)";
-$stid=oci_parse($dbh,$sql);
-oci_execute($stid);
-oci_free_statement($stid);
-
-
-$sql = "INSERT INTO modulesTime 
-(moduleCode, startTime, endTime, day, maxVacancy)
-VALUES
-('ma1311', '09:00', '11:00', 'mon', 3)";
+('cs1000', 1000, 1200, 'tue', 2)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -158,7 +149,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('cs1001s', '10:00', '12:00', 'mon', 1)";
+('ma1311', 0900, 1100, 'mon', 3)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -167,7 +158,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('cs1001s', '10:00', '12:00', 'wed', 1)";
+('cs1001s', 1000, 1200, 'mon', 1)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -176,7 +167,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('pc1219', '13:00', '15:00', 'tue', 3)";
+('cs1001s', 1000, 1200, 'wed', 1)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -185,7 +176,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('pc1219', '13:00', '15:00', 'thu', 3)";
+('pc1219', 1300, 1500, 'tue', 3)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -194,7 +185,7 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('cs2003', '13:00', '15:00', 'fri', 2)";
+('pc1219', 1300, 1500, 'thu', 3)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
@@ -203,7 +194,16 @@ oci_free_statement($stid);
 $sql = "INSERT INTO modulesTime 
 (moduleCode, startTime, endTime, day, maxVacancy)
 VALUES
-('cs2013', '13:00', '15:00', 'fri', 1)";
+('cs2003', 1300, 1500, 'fri', 2)";
+$stid=oci_parse($dbh,$sql);
+oci_execute($stid);
+oci_free_statement($stid);
+
+
+$sql = "INSERT INTO modulesTime 
+(moduleCode, startTime, endTime, day, maxVacancy)
+VALUES
+('cs2013', 1300, 1500, 'fri', 1)";
 $stid=oci_parse($dbh,$sql);
 oci_execute($stid);
 oci_free_statement($stid);
