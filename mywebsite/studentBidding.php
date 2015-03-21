@@ -76,7 +76,7 @@ order by s.moduleCode");
 
 oci_execute($stid);
 
-$headers = array('Module Code','Module Name','Start Time','End Time','Day', 'Bid Points', 'No. of Bidders', 'Highest Bid Points', 'Next Winning');
+$headers = array('Module Code','Module Name','Start Time','End Time','Day', 'Bid Points', 'Bidders / Vacancy', 'Highest Bid Points', 'Next Winning');
 ?>
 <table border='1'>
 	

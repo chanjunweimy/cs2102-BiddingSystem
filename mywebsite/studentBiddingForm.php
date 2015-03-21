@@ -14,7 +14,7 @@ $starttime = $_POST['starttime'];
 $endtime = $_POST['endtime'];
 $day = $_POST['day'];
 
-if ($bidpoints >= 0) {
+if ($bidpoints != null && $bidpoints >= 0) {
 	$stid = oci_parse($conn,"SELECT u.points, s.bidpoints
 	FROM users u, selected s
 	WHERE u.matricno = '$matric'
@@ -30,7 +30,7 @@ if ($bidpoints >= 0) {
 		$newPts = $oldPts + $oldBPts - $bidpoints;
 		if ($newPts >= 0) {
 			$stid = oci_parse($conn,"UPDATE selected
-			SET bidpoints = '$bidpoints'
+			SET bidpoints = '$bidpoints', bidtime = CURRENT_TIMESTAMP
 			WHERE matricno = '$matric'
 			AND modulecode = '$modulecode'
 			AND starttime = '$starttime'
