@@ -40,6 +40,7 @@ if(isset($_POST['selectModule']))
 								  	SELECT s2.moduleCode
 								  	FROM selected s2
 								  	WHERE s2.matricNo = '$matric'
+								  	AND s2.day = '$day'
 								  	AND ((s2.startTime >= '$startTime' AND s2.startTime < '$endTime')
 								  	OR (s2.endTime > '$startTime' AND s2.endTime <= '$endTime'))
 								  	) ");
