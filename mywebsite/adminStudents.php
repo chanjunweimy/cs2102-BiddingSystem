@@ -83,7 +83,7 @@ $stid = oci_parse($conn, "SELECT * FROM users order by matricNo");
 $stid2 = oci_parse($conn, "SELECT matricNo FROM users order by matricNo");
 oci_execute($stid);
 oci_execute($stid2);
-$headers = array('Admin No','Admin','Name','Bid points','OpenID','Password');
+$headers = array('','Admin No','Admin','Name','Bid points','OpenID','Password');
 ?>
 <table border='1'>
 	
@@ -92,25 +92,22 @@ $headers = array('Admin No','Admin','Name','Bid points','OpenID','Password');
                 <th><?php echo $header;?></th>
 	<?php endforeach; ?>
 	</tr>
-</table></br>
-
 
 <?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
-<table border='1'>
 	<tr><td>
-	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".$item2.""; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
 	}?>
 	</tr>
-</table>
 <?php
 }
 ?>
+</table>
   <input name="deleteDetails" type="submit" value="Delete" />
 </form>
 
