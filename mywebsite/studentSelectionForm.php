@@ -22,14 +22,37 @@ if(isset($_POST['selectModule']))
 		$day = $pieces[$arraySize - 3];
 		$bidpoints = 0;
 
-		echo "module code: ".$moduleCode."<br>";
-		echo "start time: ".$startTime."<br>";
-		echo "end time: ".$endTime."<br>";
-		echo "day: ".$day."<br>";
+		$stid = oci_parse($conn, "SELECT 'True' 
+								  FROM selected s1
+								  WHERE EXISTS (
+								  	SELECT s2.moduleCode
+								  	FROM selected s2
+								  	WHERE s2.moduleCode = '$moduleCode'
+								  	AND s2.matricNo = '$matric'
+								  	) ");
 
-		$stid = oci_parse($conn,"INSERT INTO selected (matricNo, moduleCode, startTime, endTime, day, bidpoints, bidTime)
-								values('$matric', '$moduleCode', '$startTime', '$endTime', '$day', '$bidpoints', CURRENT_TIMESTAMP) ");
+		oci_execute($stid);
+		$isModuleSelected = oci_fetch_array($stid, OCI_RETURN_NULLS)[0];
+
+		$stid = oci_parse($conn, "SELECT 'True'
+								  FROM selected s1
+								  WHERE EXISTS (
+								  	SELECT s2.moduleCode
+								  	FROM selected s2
+								  	WHERE s2.matricNo = '$matric'
+								  	AND ((s2.startTime >= '$startTime' AND s2.startTime < '$endTime')
+								  	OR (s2.endTime > '$startTime' AND s2.endTime <= '$endTime'))
+								  	) ");
+
 		oci_execute($stid);	
+		$isTimeClashed = oci_fetch_array($stid, OCI_RETURN_NULLS)[0];
+
+		if (!$isModuleSelected && !$isTimeClashed) {
+			$stid = oci_parse($conn,"INSERT INTO selected (matricNo, moduleCode, startTime, endTime, day, bidpoints, bidTime)
+								     values('$matric', '$moduleCode', '$startTime', '$endTime', '$day', '$bidpoints', CURRENT_TIMESTAMP) ");
+			oci_execute($stid);	
+		}
+
 	}
 }
 

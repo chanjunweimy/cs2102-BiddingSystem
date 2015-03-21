@@ -13,7 +13,7 @@ VALUES
 INSERT INTO modules 
 (moduleCode, moduleName)
 VALUES
-('cs1001s', 'Introduction to advanced computing')
+('cs1001s', 'Introduction to advanced computing')；
 
 INSERT INTO modules 
 (moduleCode, moduleName)
