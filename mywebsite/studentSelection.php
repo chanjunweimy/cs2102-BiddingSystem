@@ -50,11 +50,30 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$stid = oci_parse($conn, "SELECT * FROM modules inner join modulesTime ON modules.moduleCode=modulesTime.moduleCode order by modulesTime.moduleCode,modulesTime.startTime,modulesTime.endTime,modulesTime.day");
-$stid2 = oci_parse($conn, "SELECT * FROM modules inner join modulesTime ON modules.moduleCode=modulesTime.moduleCode order by modulesTime.moduleCode,modulesTime.startTime,modulesTime.endTime,modulesTime.day");
+
+$matric=$_COOKIE["username"];  
+
+$stid = oci_parse($conn, "SELECT m.moduleCode, m.moduleName, mt.startTime, mt.endTime, mt.day, mt.maxVacancy 
+						  FROM modules m, modulesTime mt
+						  WHERE m.moduleCode = mt.moduleCode
+						  AND m.moduleCode != ALL (
+						  	SELECT s.moduleCode
+						    FROM selected s
+						    WHERE s.matricNo = '$matric'
+						  )
+						  ORDER BY m.moduleCode, mt.startTime, mt.endTime, mt.day");
+$stid2 = oci_parse($conn, "SELECT m.moduleCode, m.moduleName, mt.startTime, mt.endTime, mt.day, mt.maxVacancy 
+						   FROM modules m, modulesTime mt
+						   WHERE m.moduleCode = mt.moduleCode
+						   AND m.moduleCode != ALL (
+						  	 SELECT s.moduleCode
+						     FROM selected s
+						     WHERE s.matricNo = '$matric'
+						   )
+						   ORDER BY m.moduleCode, mt.startTime, mt.endTime, mt.day");
 oci_execute($stid);
 oci_execute($stid2);
-$headers = array('Module Name','Module Name','Start Time','End Time','Day','Vacancy');
+$headers = array('', 'Module Code','Module Name','Start Time','End Time','Day','Vacancy');
 ?>
 <table border='1'>
 	
@@ -63,13 +82,11 @@ $headers = array('Module Name','Module Name','Start Time','End Time','Day','Vaca
                 <th><?php echo $header;?></th>
 	<?php endforeach; ?>
 	</tr>
-</table></br>
 
 <?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
-<table border='1'>
 	<tr><td>
 	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
 	</td>
@@ -77,10 +94,12 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
 	}?>
 	</tr>
-</table>
 <?php
 }
 ?>
+</table>
+<br>
+
 <input name="selectModule" type="submit" value="Select" />
 </form>
 
@@ -95,15 +114,23 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 $matric=$_COOKIE["username"];
-$stid = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selected.startTime,selected.endTime,selected.day FROM selected inner join modules on selected.moduleCode=modules.moduleCode
-		 where selected.matricNo='$matric' order by selected.matricNo,selected.moduleCode,selected.startTime,selected.endTime,selected.day");
-$stid2 = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selected.startTime,selected.endTime,selected.day FROM selected inner join modules on selected.moduleCode=modules.moduleCode
-		where selected.matricNo='$matric' order by selected.matricNo,selected.moduleCode,selected.startTime,selected.endTime,selected.day");
+$stid = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selected.startTime,selected.endTime,selected.day 
+					      FROM selected 
+					      INNER JOIN modules 
+					      ON selected.moduleCode=modules.moduleCode
+		 				  WHERE selected.matricNo='$matric' 
+		 				  ORDER BY selected.matricNo,selected.moduleCode,selected.startTime,selected.endTime,selected.day");
+$stid2 = oci_parse($conn, "SELECT selected.moduleCode,modules.moduleName,selected.startTime,selected.endTime,selected.day 
+						  FROM selected 
+						  INNER JOIN modules 
+						  ON selected.moduleCode=modules.moduleCode
+						  WHERE selected.matricNo='$matric' 
+						  ORDER BY selected.matricNo,selected.moduleCode,selected.startTime,selected.endTime,selected.day");
 
 oci_execute($stid);
 oci_execute($stid2);
 
-$headers = array('Module Code','Module Name','Start Time','End Time','Day');
+$headers = array('', 'Module Code','Module Name','Start Time','End Time','Day');
 ?>
 <table border='1'>
 	
@@ -112,14 +139,11 @@ $headers = array('Module Code','Module Name','Start Time','End Time','Day');
                 <th><?php echo $header;?></th>
 	<?php endforeach; ?>
 	</tr>
-</table></br>
-
 
 <?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
-<table border='1'>
 	<tr><td>
 	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
 	</td>
@@ -127,10 +151,12 @@ and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
 	}?>
 	</tr>
-</table>
 <?php
 }
 ?>
+</table>
+<br>
+
   <input name="deleteModule" type="submit" value="Delete" />
 </form>
 	  

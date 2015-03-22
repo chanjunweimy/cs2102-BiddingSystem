@@ -77,7 +77,7 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$headers = array('Module Code','Module Name');
+$headers = array('','Module Code','Module Name');
 
 $stid = oci_parse($conn, "SELECT * FROM modules order by moduleCode");
 $stid2 = oci_parse($conn, "SELECT moduleCode FROM modules order by moduleCode");
@@ -90,26 +90,23 @@ oci_execute($stid2);?>
                 <th><?php echo $header;?></th>
 	<?php endforeach; ?>
 	</tr>
-</table>
-</br>
 
 <?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
-<table border='1'>
 	<tr><td>
-	<?php foreach($row2 as $item2)?>
-	<input name="checkbox[]" type="checkbox" value="<?php echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;").""; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
 	}?>
 	</tr>
-</table>
 <?php
 }
 ?>
+</table>
+
 <input name="deleteModule" type="submit" value="Delete" />
 </form>
 
@@ -138,7 +135,7 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$headers = array('Module Name','Start Time','End Time','Day','Vacancy');
+$headers = array('','Module Name','Start Time','End Time','Day','Vacancy');
 
 $stid = oci_parse($conn, "SELECT * FROM modulesTime order by moduleCode,startTime,endTime,day");
 $stid2 = oci_parse($conn, "SELECT * FROM modulesTime order by moduleCode,startTime,endTime,day");
@@ -151,23 +148,23 @@ oci_execute($stid2);?>
                 <th><?php echo $header;?></th>
 	<?php endforeach; ?>
 	</tr>
-</table></br>
+
 <?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
-	and $row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
+	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
-<table border='1'>
 	<tr><td>
-	<input name="checkbox[]" type="checkbox" value="<?php  foreach($row2 as $item2) echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">	
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
 	}?>
 	</tr>
-</table>
 <?php
 }
 ?>
+</table>
+
 <input name="deleteModuleTimeSlot" type="submit" value="Delete" />
 </form>
 
@@ -210,7 +207,7 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
-$headers = array('Admin No','Module Code','Start Time','End Time','Day','Bid points','Bid Time','Success');
+$headers = array('','Admin No','Module Code','Start Time','End Time','Day','Bid points','Bid Time','Success');
 
 $stid = oci_parse($conn, "SELECT * FROM selected order by matricNo, moduleCode,startTime,endTime,day");
 $stid2 = oci_parse($conn, "SELECT * FROM selected order by matricNo, moduleCode,startTime,endTime,day");
@@ -224,23 +221,22 @@ oci_execute($stid2);?>
                 <th><?php echo $header;?></th>
 	<?php endforeach; ?>
 	</tr>
-</table></br>
+
 <?php
 while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
 	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
 ?>
-<table border='1'>
 	<tr><td>
-	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2) echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
 	</td>
 	<?php foreach($row as $item){?>
 	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
 	}?>
 	</tr>
-</table>
 <?php
 }
 ?>
+</table>
 <input name="deleteSelectedModule" type="submit" value="Delete" />
 </form>
 
