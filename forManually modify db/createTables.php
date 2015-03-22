@@ -13,7 +13,7 @@ oci_free_statement($stid);
 
 # 2
 $sql = 'CREATE TABLE prerequisite (
-andId INT CHECK (andId = 0 OR andId = 1),
+andId INT,
 module VARCHAR (16),
 requiredModule VARCHAR (16),
 FOREIGN KEY (module) REFERENCES modules(moduleCode),
