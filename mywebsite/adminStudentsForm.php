@@ -48,7 +48,24 @@ else if(isset($_POST['updateAllUserPoints']))
 	$stid = oci_parse($conn,"UPDATE users SET POINTS='$varPoints'");
 	oci_execute($stid);	
 }
-
+else if(isset($_POST['deletePassedModules']))
+{    	
+	$checkbox = $_POST['checkbox'];
+	
+	foreach($checkbox as $value){
+	
+	$pieces = explode(" ", $value);
+	$stid = oci_parse($conn,"DELETE FROM passed 
+				where matricNo='$pieces[0]'and moduleCode='$pieces[1]'");
+	oci_execute($stid);
+	}
+}
+else if(isset($_POST['addPassedModules'])){
+	$varMatricNo = $_POST['matricNo'];
+	$varPassedModule = $_POST['moduleCode'];
+	$stid = oci_parse($conn,"INSERT INTO passed values('$varMatricNo','$varPassedModule')");
+	oci_execute($stid);
+}
 header ( "Location: adminStudents.php" );
 
 

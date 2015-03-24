@@ -154,6 +154,60 @@ Points:<br>
   <input name="updateAllUserPoints" type="submit" value="Update" />
 </form>
 
+<h1>Students and passed modules</h1>
+<form id="form1" name="form1" method="post" action="adminStudentsForm.php">
+
+<?php
+include 'connect.php';
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+$stid = oci_parse($conn, "SELECT * FROM Passed order by matricNo,moduleCode");
+$stid2 = oci_parse($conn, "SELECT * FROM Passed order by matricNo,moduleCode");
+oci_execute($stid);
+oci_execute($stid2);
+$headers = array('','Admin No','Module Code');
+?>
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+
+<?php
+while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
+	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
+?>
+	<tr><td>
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
+	</td>
+	<?php foreach($row as $item){?>
+	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
+	}?>
+	</tr>
+<?php
+}
+?>
+</table>
+  <input name="deletePassedModules" type="submit" value="Delete" />
+</form>
+
+<h1>Add student passed modules</h1>
+
+<form id="form1" name="form1" method="post" action="adminStudentsForm.php">
+Matric No of student:<br>
+<input type="text" name="matricNo">
+<br>
+Passed Modulde Code:<br>
+<input type="text" name="moduleCode">
+<br>
+  <input name="addPassedModules" type="submit" value="Add" />
+</form>
+
 <!-- end .content --></font></div>
 <!-- InstanceEndEditable -->
 <div class="footer"><center><font size="-2">
