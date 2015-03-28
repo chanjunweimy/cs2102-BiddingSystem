@@ -4,22 +4,24 @@ moduleName VARCHAR (128),
 PRIMARY KEY (moduleCode)
 );
 
+
 CREATE TABLE prerequisite (
 andId INT CHECK (andId = 0 OR andId = 1),
 module VARCHAR (16),
 requiredModule VARCHAR (16),
-FOREIGN KEY (module) REFERENCES modules(moduleCode),
-FOREIGN KEY (requiredModule) REFERENCES modules(moduleCode),
-PRIMARY KEY (andId, module, requiredModule)
-);
+FOREIGN KEY (module) REFERENCES modules(moduleCode) ON DELETE CASCADE,
+FOREIGN KEY (requiredModule) REFERENCES modules(moduleCode) ON DELETE CASCADE,
+PRIMARY KEY (andId, module, requiredModule));
+
 
 CREATE TABLE preclusion(
 module VARCHAR (16),
 excludedModule VARCHAR (16),
-FOREIGN KEY (module) REFERENCES modules(moduleCode),
-FOREIGN KEY (excludedModule) REFERENCES modules(moduleCode),
+FOREIGN KEY (module) REFERENCES modules(moduleCode) ON DELETE CASCADE,
+FOREIGN KEY (excludedModule) REFERENCES modules(moduleCode)  ON DELETE CASCADE,
 PRIMARY KEY (module, excludedModule)
 );
+
 
 CREATE TABLE modulesTime (
 moduleCode VARCHAR (16),
@@ -59,13 +61,15 @@ password CHAR (64),
 PRIMARY KEY (matricNo)
 );
 
+
 CREATE TABLE passed (
 matricNo VARCHAR(10),
 moduleCode VARCHAR(16),
-FOREIGN KEY (matricNo) REFERENCES users(matricNo),
-FOREIGN KEY (moduleCode) REFERENCES modules(moduleCode),
+FOREIGN KEY (matricNo) REFERENCES users(matricNo) ON DELETE CASCADE,
+FOREIGN KEY (moduleCode) REFERENCES modules(moduleCode) ON DELETE CASCADE,
 PRIMARY KEY (matricNo, moduleCode)
 );
+
 
 
 CREATE TABLE selected(
@@ -77,12 +81,14 @@ day CHAR(3),
 bidpoints INT NOT NULL,
 bidTime TIMESTAMP NOT NULL,
 success INT DEFAULT '0' NOT NULL CHECK (success = 0 OR success = 1),
-FOREIGN KEY (matricNo) REFERENCES users(matricNo),
-FOREIGN KEY (moduleCode, startTime, endTime, day) REFERENCES modulesTime(moduleCode, startTime, endTime, day),
+FOREIGN KEY (matricNo) REFERENCES users(matricNo) ON DELETE CASCADE,
+FOREIGN KEY (moduleCode, startTime, endTime, day) REFERENCES modulesTime(moduleCode, startTime, endTime, day) ON DELETE CASCADE,
 PRIMARY KEY (matricNo, moduleCode, startTime, endTime, day)
 );
+
 
 CREATE TABLE sessionBit (
 sessionB INTEGER default '0',
 PRIMARY KEY (sessionB)
 );
+
