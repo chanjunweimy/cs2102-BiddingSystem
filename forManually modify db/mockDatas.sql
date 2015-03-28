@@ -1,4 +1,4 @@
-alter SESSION set NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF';
+﻿alter SESSION set NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF';
 
 INSERT INTO modules 
 (moduleCode, moduleName)
@@ -13,7 +13,7 @@ VALUES
 INSERT INTO modules 
 (moduleCode, moduleName)
 VALUES
-('cs1001s', 'Introduction to advanced computing')；
+('cs1001s', 'Introduction to advanced computing');
 
 INSERT INTO modules 
 (moduleCode, moduleName)
@@ -249,7 +249,7 @@ INSERT INTO selected
 matricNo, bidpoints, bidTime, success)
 VALUES
 ('cs1000', 1200, 1400, 'tue', 
-'a0000004a', 1, '2015-03-15 12:00:10.0000, 0');
+'a0000004a', 1, '2015-03-15 12:00:10.0000', 0);
 
 
 INSERT INTO selected 
@@ -257,14 +257,14 @@ INSERT INTO selected
 matricNo, bidpoints, bidTime, success)
 VALUES
 ('pc1219', 1300, 1500, 'tue', 
-'a0000001a', 10, '2015-03-15 13:00:10.0000, 0');
+'a0000001a', 10, '2015-03-15 13:00:10.0000', 0);
 
 INSERT INTO selected 
 (moduleCode, startTime, endTime, day, 
 matricNo, bidpoints, bidTime, success)
 VALUES
 ('pc1219', 1300, 1500, 'tue', 
-'a0000002a', 30, '2015-03-15 13:01:10.0000, 0');
+'a0000002a', 30, '2015-03-15 13:01:10.0000', 0);
 
 INSERT INTO selected 
 (moduleCode, startTime, endTime, day, 
