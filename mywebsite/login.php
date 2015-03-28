@@ -18,7 +18,7 @@ if($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)){
 $stid2 = oci_parse($conn, "SELECT admin FROM users where matricNo='$username' and password='$password' ");
 oci_execute($stid2);
 	$row2 = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS);
-	$row3 =	oci_fetch_array($session, OCI_ASSOC+OCI_RETURN_NULLS);
+	
 		
 			foreach ($row2 as $item) {
         		if($item=="1"){
