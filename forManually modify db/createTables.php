@@ -1,6 +1,15 @@
 <?php
 include 'connect.php';
 
+# 0
+$sql = "CREATE TABLE sessionBit (
+sessionB INTEGER default '0',
+PRIMARY KEY (sessionB)
+) ";
+$stid=oci_parse($dbh,$sql);
+oci_execute($stid,OCI_DEFAULT);
+oci_free_statement($stid);
+
 # 1
 $sql = 'CREATE TABLE modules ( 
 moduleCode VARCHAR (16),

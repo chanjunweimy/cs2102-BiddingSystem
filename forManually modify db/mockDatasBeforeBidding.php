@@ -3,6 +3,12 @@ include 'connect.php';
 
 #these are the datas that already have before session open
 
+#insert into session bits
+$sql = "INSERT INTO sessionBIT VALUES ('0')";
+$stid=oci_parse($dbh,$sql);
+oci_execute($stid);
+oci_free_statement($stid);
+
 #insert into modules
 $sql = "INSERT INTO modules 
 (moduleCode, moduleName)

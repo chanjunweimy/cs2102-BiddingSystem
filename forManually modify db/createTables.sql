@@ -81,3 +81,8 @@ FOREIGN KEY (matricNo) REFERENCES users(matricNo),
 FOREIGN KEY (moduleCode, startTime, endTime, day) REFERENCES modulesTime(moduleCode, startTime, endTime, day),
 PRIMARY KEY (matricNo, moduleCode, startTime, endTime, day)
 );
+
+CREATE TABLE sessionBit (
+sessionB INTEGER default '0',
+PRIMARY KEY (sessionB)
+);
