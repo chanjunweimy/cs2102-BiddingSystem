@@ -10,8 +10,6 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-$session = oci_parse($conn, "SELECT * FROM SessionBit"); 
-oci_execute($session);
 
 $stid = oci_parse($conn, "SELECT * FROM users where matricNo='$username' and password='$password' ");
 oci_execute($stid);
@@ -27,13 +25,9 @@ oci_execute($stid2);
 				header ( "Location: adminHome.php" );
 				setcookie("username", $_POST["username"], time()+3600);
 			}else if($item=="0"){
-				foreach ($row3 as $item2){
-				if($item2=="1"){	
 				setcookie("username", $_POST["username"], time()+3600);
 				header ( "Location: studentHome.php" );
-				}else
-				header("Location: index.php");
-				}
+				
 			}
     		}
 	
