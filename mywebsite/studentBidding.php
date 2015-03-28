@@ -51,6 +51,14 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 $matric=$_COOKIE["username"];
+$session = oci_parse($conn, "SELECT * FROM SessionBit"); 
+oci_execute($session);
+$row3 =	oci_fetch_array($session, OCI_ASSOC+OCI_RETURN_NULLS);
+foreach ($row3 as $item2){
+if($item2=="0"){	
+header("Location: studentHome.php");
+}
+}
 
 $stid = oci_parse($conn, "SELECT points FROM users WHERE matricNo='$matric'");
 oci_execute($stid);
@@ -76,7 +84,7 @@ order by s.moduleCode");
 
 oci_execute($stid);
 
-$headers = array('Module Code','Module Name','Start Time','End Time','Day', 'Bid Points', 'Bidders / Vacancy', 'Highest Bid Points', 'Next Winning');
+$headers = array('Module Code','Module Name','Start Time','End Time','Day', 'Bid Points', 'No. of Bidders', 'Highest Bid Points', 'Next Winning');
 ?>
 <table border='1'>
 	
