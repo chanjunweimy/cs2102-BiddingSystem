@@ -164,14 +164,20 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
 										   and s.day = '$row[DAY]'
 										   and s.success = '0'
 										   order by s.bidpoints desc");
+				
 				oci_execute($stid2);
-				oci_fetch_all ($stid2, $bidPoints , $row['MAXVACANCY']-1, 1); 
+				$r=oci_fetch_all ($stid2, $bidPoints , $row['MAXVACANCY']-1, 1); 
+				if($r){
 				echo $bidPoints["BIDPOINTS"][0] + 1;
+				}else{
+				echo "Successfully bidded";}
 			}
 		?>
 		</td>
 		<td>
+			<?php if($r){?>
 			<input name="updateBidpoints" type="submit" value="Update" />
+			<?php }else{ echo "-";}?>
 		</td?
 	</tr>
 	</form>
