@@ -72,6 +72,55 @@ else if(isset($_POST['deleteSelectedModule']))
 	}
 }
 
+else if(isset($_POST['deletePreclusionModule']))
+{    	
+	
+	$checkbox = $_POST['checkbox'];
+	
+	foreach($checkbox as $value){
+	
+	$pieces = explode(" ", $value);
+	
+	$stid = oci_parse($conn,"DELETE FROM Preclusion 
+				where module='$pieces[0]'and excludedModule='$pieces[1]'");
+	oci_execute($stid);
+	}
+}
+
+else if(isset($_POST['addPreclusionModule']))
+{    	
+	$varModuleCode = $_POST['moduleCode'];
+	$varmoduleExcluded = $_POST['moduleExcluded'];
+	
+	$stid = oci_parse($conn,"INSERT INTO Preclusion values('$varModuleCode','$varmoduleExcluded')");
+	oci_execute($stid);
+}
+
+else if(isset($_POST['deletePrerequisiteModule']))
+{    	
+	
+	$checkbox = $_POST['checkbox'];
+	
+	foreach($checkbox as $value){
+	
+	$pieces = explode(" ", $value);
+	
+	$stid = oci_parse($conn,"DELETE FROM Prerequisite 
+				where ANDID='$pieces[0]'and module='$pieces[1]'and requiredModule='$pieces[2]'");
+	oci_execute($stid);
+	}
+}
+
+else if(isset($_POST['addPrerequisite']))
+{    	
+	$varModuleCode = $_POST['moduleCode'];
+	$varRequiredModule = $_POST['requiredModule'];
+	$varANDID = $_POST['ANDID'];
+	
+	$stid = oci_parse($conn,"INSERT INTO Prerequisite values('$varANDID','$varModuleCode','$varRequiredModule')");
+	oci_execute($stid);
+}
+
 header ( "Location: adminModules.php" );
 
 ?>

@@ -51,14 +51,6 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 $matric=$_COOKIE["username"];
-$session = oci_parse($conn, "SELECT * FROM SessionBit"); 
-oci_execute($session);
-$row3 =	oci_fetch_array($session, OCI_ASSOC+OCI_RETURN_NULLS);
-foreach ($row3 as $item2){
-if($item2=="0"){	
-header("Location: studentHome.php");
-}
-}
 
 $stid = oci_parse($conn, "SELECT points FROM users WHERE matricNo='$matric'");
 oci_execute($stid);
@@ -67,13 +59,14 @@ if ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
 }
 
 $stid = oci_parse($conn, "select s.moduleCode, m.moduleName, s.startTime, s.endTime, s.day, s.bidpoints, s.bidTime, 
-count(case when s2.bidpoints > 0 then 1 end) as NoBidder, mt.maxvacancy, max(s2.bidpoints) as highestBidPts 
+count(case when s2.bidpoints > 0 and s2.success = 0 then 1 end) as NoBidder, mt.maxvacancy, max(s2.bidpoints) as highestBidPts 
 from selected s, selected s2, modules m, modulestime mt
 where s.matricNo = '$matric'
 and s2.moduleCode = s.moduleCode
 and s2.startTime = s.startTime
 and s2.endTime = s.endTime
 and s2.day = s.day
+and s.success = '0'
 and s.moduleCode = m.moduleCode
 and s.moduleCode = mt.moduleCode
 and s.starttime = mt.starttime
@@ -164,20 +157,14 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
 										   and s.day = '$row[DAY]'
 										   and s.success = '0'
 										   order by s.bidpoints desc");
-				
 				oci_execute($stid2);
-				$r=oci_fetch_all ($stid2, $bidPoints , $row['MAXVACANCY']-1, 1); 
-				if($r){
+				oci_fetch_all ($stid2, $bidPoints , $row['MAXVACANCY']-1, 1); 
 				echo $bidPoints["BIDPOINTS"][0] + 1;
-				}else{
-				echo "Successfully bidded";}
 			}
 		?>
 		</td>
 		<td>
-			<?php if($r){?>
 			<input name="updateBidpoints" type="submit" value="Update" />
-			<?php }else{ echo "-";}?>
 		</td?
 	</tr>
 	</form>
