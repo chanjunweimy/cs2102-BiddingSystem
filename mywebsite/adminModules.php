@@ -241,6 +241,125 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)
 </form>
 
 
+<h1>Preclusion Modules</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
+<?php
+
+
+include 'connect.php';
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+$headers = array('','Module','Module Excluded');
+
+$stid = oci_parse($conn, "SELECT * FROM Preclusion order by module, excludedModule");
+$stid2 = oci_parse($conn, "SELECT * FROM Preclusion order by module, excludedModule");
+oci_execute($stid);
+oci_execute($stid2);?>
+
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+
+<?php
+while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
+	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
+?>
+	<tr><td>
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
+	</td>
+	<?php foreach($row as $item){?>
+	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
+	}?>
+	</tr>
+<?php
+}
+?>
+</table>
+<input name="deletePreclusionModule" type="submit" value="Delete" />
+</form>
+
+
+<h1>Add Preclusion Module</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
+Module Code:<br>
+<input type="text" name="moduleCode">
+<br>
+Excluded module Code:<br>
+<input type="text" name="moduleExcluded">
+<br>
+<input name="addPreclusionModule" type="submit" value="Add" />
+</form>
+
+
+<h1>Prerequisite Modules</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
+<?php
+
+
+include 'connect.php';
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+$headers = array('','ANDID','Module','Required Excluded');
+
+$stid = oci_parse($conn, "SELECT * FROM Prerequisite order by ANDID,module, requiredModule");
+$stid2 = oci_parse($conn, "SELECT * FROM Prerequisite order by ANDID,module, requiredModule");
+oci_execute($stid);
+oci_execute($stid2);?>
+
+<table border='1'>
+	
+	<tr>
+	<?php foreach ($headers as $header): ?>
+                <th><?php echo $header;?></th>
+	<?php endforeach; ?>
+	</tr>
+
+<?php
+while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS) 
+	and $row2=oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
+?>
+	<tr><td>
+	<input name="checkbox[]" type="checkbox" value="<?php foreach($row2 as $item2)echo "".($item2 !== null ? htmlentities($item2, ENT_QUOTES) : "&nbsp;")." "; ?>">
+	</td>
+	<?php foreach($row as $item){?>
+	<?php echo "<td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>";
+	}?>
+	</tr>
+<?php
+}
+?>
+</table>
+<input name="deletePrerequisiteModule" type="submit" value="Delete" />
+</form>
+
+
+<h1>Add Prerequisite Modules</h1>
+<form id="form1" name="form1" method="post" action="adminModulesForm.php">
+Module Code:<br>
+<input type="text" name="moduleCode">
+<br>
+Required Module Code:<br>
+<input type="text" name="requiredModule">
+<br>
+ANDID:<br>
+<select name="ANDID">
+  <option value="0">False</option>
+  <option value="1">True</option>
+</select>
+<br>
+<input name="addPrerequisite" type="submit" value="Add" />
+</form>
+
+
+
 <!-- end .content --></font></div>
 <!-- InstanceEndEditable -->
 <div class="footer"><center><font size="-2">
