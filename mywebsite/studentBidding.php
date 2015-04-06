@@ -50,6 +50,16 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
+
+$session = oci_parse($conn, "SELECT * FROM SessionBit"); 
+oci_execute($session);
+$row3 =	oci_fetch_array($session, OCI_ASSOC+OCI_RETURN_NULLS);
+foreach ($row3 as $item2){
+if($item2=="0"){	
+header("Location: studentHome.php");
+}
+}
+
 $matric=$_COOKIE["username"];
 
 $stid = oci_parse($conn, "SELECT points FROM users WHERE matricNo='$matric'");
